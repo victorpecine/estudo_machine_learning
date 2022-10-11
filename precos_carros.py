@@ -1,9 +1,9 @@
-from statistics import mode
 import pandas as pd
 from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
+from sklearn.dummy import DummyClassifier
 import numpy as np
 
 
@@ -52,3 +52,24 @@ previsoes = modelo_linear.predict(teste_x)
 
 precisao = accuracy_score(teste_y, previsoes)
 # 0.5864
+
+
+# Estimador dummy
+dummy_stratified = DummyClassifier(strategy="stratified")
+
+dummy_stratified.fit(treino_x, treino_y)
+
+previsoes_dummy_stratified = dummy_stratified.predict(teste_x)
+
+precisao_dummy_stratified = dummy_stratified.score(teste_x, teste_y)
+# 0.5028
+
+
+dummy_most_frequent = DummyClassifier(strategy="most_frequent")
+
+dummy_most_frequent.fit(treino_x, treino_y)
+
+previsoes_dummy_most_frequent = dummy_most_frequent.predict(teste_x)
+
+precisao_dummy_most_frequent = dummy_most_frequent.score(teste_x, teste_y)
+# 0.58
